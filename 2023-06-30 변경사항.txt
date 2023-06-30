@@ -1,0 +1,6 @@
+1. DB food_board에 board_file 컬럼 추가 - 취소(이미지만 등록할것이므로 이미지 아닌 파일 저장할 장소는 필요가 없음)
+2. DB food_board에 board_title 컬럼 추가
+3. DB food_board에 board_comment 컬럼 추가
+4. DB food_comment의 comment_memeberName과 food_member의 member_name FK로 연결
+5. DB food_comment의 comment_boardNum과 food_board의 board_num FK로 연결
+6. DB food_board의 board_title 컬럼 삭제 ( 게시글 형식 상 제목이 불필요함)
