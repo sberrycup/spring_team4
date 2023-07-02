@@ -36,6 +36,8 @@ public class LoginController {
 
             session.setAttribute("memberEmail", userInfo.getMemberEmail());
             session.setAttribute("memberName", userInfo.getMemberName());
+//            관리자인지 확인하기 위해서 sql고치고 가져옴
+            session.setAttribute("adminYn",userInfo.getAdminYn());
 
             return "redirect:/login/loginOK.do";
         }else {
@@ -52,6 +54,7 @@ public class LoginController {
         UserDto user = new UserDto();
         user.setMemberEmail((String)session.getAttribute("memberEmail"));
         user.setMemberName((String)session.getAttribute("memberName"));
+        user.setAdminYn((String)session.getAttribute("adminYn"));
 
         mv.addObject("userInfo", user);
 
@@ -71,6 +74,7 @@ public class LoginController {
 
         session.removeAttribute("memberEmail");
         session.removeAttribute("memberName");
+        session.removeAttribute("adminYn");
 
         session.invalidate();
 
@@ -88,4 +92,7 @@ public class LoginController {
         userService.insertMembership(userDto);
         return "login/login";
     }
+
+//    @RequestMapping(value = "", method = RequestMethod.DELETE)
+//    public String
 }

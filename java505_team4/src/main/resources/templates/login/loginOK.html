@@ -26,6 +26,8 @@
     <div class="col-sm justify-content-end">
       <p class="fs-3"> <span th:text="${userInfo.memberName}"></span> 님 반갑습니다.</p>
       <a href="/login/logout.do" class="btn btn-outline-warning ms-3">Logout</a>
+<!--  th:if로 관리자일때 관리자 페이지로 이동함 -->
+      <button th:if="${userInfo.adminYn.equals('Y')}" class="btn btn-primary">관리자 페이지로 이동</button>
     </div>
   </div>
 </div>

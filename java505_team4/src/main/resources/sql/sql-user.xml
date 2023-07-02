@@ -17,7 +17,7 @@
 
     <select id="getUserInfo" resultType="com.bitc.java505_team4.dto.UserDto" parameterType="String">
         SELECT
-            member_email, member_name
+            member_email, member_name, admin_yn
         FROM
             food_member
         WHERE
