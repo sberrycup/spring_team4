@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 식단</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- Bootstrap Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<!-- Bootstrap Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap Datepicker 한국어 언어 파일 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+
+
+<style>
+    .logo {
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+    }
+
+    .profile {
+        width: 50px;
+        height: 50px;
+        background-color: aqua;
+    }
+
+    .write-icon {
+        width: 25px;
+        height: 25px;
+        background-color: aqua;
+    }
+
+    .board-image {
+        width: 1100px;
+        height: 500px;
+        background-color: aqua;
+    }
+
+    .myProfile {
+        width: 300px;
+        height: 300px;
+        background-color: aqua;
+    }
+
+
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd', // 날짜 형식 설정
+                autoclose: true, // 선택 후 자동으로 달력 닫기
+                todayHighlight: true, // 오늘 날짜 강조 표시
+                language: 'ko'
+            });
+            $('#breakfastInsertBtn').click(function(){
+                $('#breakfastSearchInfo').slideToggle();
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <header class="container-fluid my-4">
+
+        <!-- 로그인(로그아웃, 마이페이지) -->
+        <div class="container d-flex justify-content-end">
+            <a href="#">로그인</a>
+        </div>
+
+        <!-- 로고 -->
+        <div class="container">
+            <div class="logo"></div>
+        </div>
+        
+        <!-- 네비바 -->
+        <nav class="container-fluid navbar navbar-expand-lg border-bottom mt-5">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-1g-0">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">홈</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">식품</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">내 식단</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2 rounded-0" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <session class="container my-4">
+            <div class="row">
+                <div class="col-sm-4 mx-auto">
+                    <h3 class="my-5">내 식단</h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 mx-auto">
+                    <div class="input-group date">
+                        <input type="text" class="form-control datepicker" placeholder="날짜 선택">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 mx-auto">
+                    <h4>아침</h4>
+                    <div class="my-3 d-grid gap-3 mb-5 ">
+                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#breakfastModal">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 mx-auto">
+                    <h4>점심</h4>
+                    <div class="my-3 d-grid gap-3 mb-5 ">
+                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#lunchModal">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 mx-auto">
+                    <h4>저녁</h4>
+                    <div class="my-3 d-grid gap-3 mb-5 ">
+                        <button type="button" class="btn btn-outline-secondary rounded-0" data-bs-toggle="modal" data-bs-target="#dinnerModal" id="dinnerSearchBtn">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </session>
+        <!-- 아침식단입력 -->
+        <session>
+            <div class="modal fade" id="breakfastModal" tabindex="-1" aria-labelledby="breakfastModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="breakfastModalLabel">아침식단입력</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <session class="container my-4">
+                                <form>
+                                    <div class="row border-bottom">
+                                        <div class="col-sm-10 mx-auto">
+                                            <h3 class="my-5">식품영양정보</h3>
+                                            <div class="row mb-5">
+                                                <!-- 검색창 -->
+                                                <div class="col-sm-3">
+                                                    <select class="form-select">
+                                                        <option selected>분류</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control me-2" type="search" placeholder="Search">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="d-grid gap-3">
+                                                        <button class="btn btn-outline-success" type="submit" id="breakfastSearchBtn">Search</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <!-- 검색결과 -->
+                                    <form>
+                                    <div class="row" id="breakfastSearchInfo" style="display: none;">
+                                        <div class="col-sm-10 mx-auto">
+                                            <p class="my-5 fs-5 text-muted">검색결과</p>
+                                            <div class="d-flex justify-content-start mb-5">
+                                                <h4 class="me-3">감자튀김</h4>
+                                                <p class="text-muted align-self-end">분류 > 튀김류</p>
+                                            </div>
+                                            <div class="justify-content-center d-flex">
+                                                <div class="board-image"></div>
+                                            </div>
+                                            <div class="my-3 d-grid gap-3 mb-5 ">
+                                                <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    식품영양정보 상세보기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </session>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary rounded-pill">저장</button>
+                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </session>
+        <!-- 점심식단입력 -->
+        <session>
+            <div class="modal fade" id="lunchModal" tabindex="-1" aria-labelledby="lunchModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="lunchModalLabel">점심식단입력</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="lunchSearchBtn"></button>
+                        </div>
+                        <div class="modal-body">
+                            <session class="container my-4">
+            <form>
+                <div class="row border-bottom">
+                    <div class="col-sm-4 mx-auto">
+                        <h3 class="my-5">식품영양정보</h3>
+                        <div class="row mb-5">
+                            <!-- 검색창 -->
+                            <div class="col-sm-3">
+                                <select class="form-select">
+                                    <option selected>분류</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="form-control me-2" type="search" placeholder="Search">
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="d-grid gap-3">
+                                    <button class="btn btn-outline-success" type="submit" id="dinnerSearchBtn">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+                <!-- 검색결과 -->
+                <form>
+                <div class="row">
+                    <div class="col-sm-4 mx-auto">
+                        <p class="my-5 fs-5 text-muted">검색결과</p>
+                        <div class="d-flex justify-content-start mb-5">
+                            <h4 class="me-3">감자튀김</h4>
+                            <p class="text-muted align-self-end">분류 > 튀김류</p>
+                        </div>
+                        <div class="justify-content-center d-flex">
+                            <div class="board-image"></div>
+                        </div>
+                        <div class="my-3 d-grid gap-3 mb-5 ">
+                            <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                식품영양정보 상세보기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </session>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary rounded-pill">저장</button>
+                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </session>
+        <!-- 저녁식단입력 -->
+        <session>
+            <div class="modal fade" id="dinnerModal" tabindex="-1" aria-labelledby="dinnerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="dinnerModalLabel">저녁식단입력</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <session class="container my-4">
+                                <form>
+                                    <div class="row border-bottom">
+                                        <div class="col-sm-4 mx-auto">
+                                            <h3 class="my-5">식품영양정보</h3>
+                                            <div class="row mb-5">
+                                                <!-- 검색창 -->
+                                                <div class="col-sm-3">
+                                                    <select class="form-select">
+                                                        <option selected>분류</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control me-2" type="search" placeholder="Search">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="d-grid gap-3">
+                                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <!-- 검색결과 -->
+                                    <form>
+                                    <div class="row">
+                                        <div class="col-sm-4 mx-auto">
+                                            <p class="my-5 fs-5 text-muted">검색결과</p>
+                                            <div class="d-flex justify-content-start mb-5">
+                                                <h4 class="me-3">감자튀김</h4>
+                                                <p class="text-muted align-self-end">분류 > 튀김류</p>
+                                            </div>
+                                            <div class="justify-content-center d-flex">
+                                                <div class="board-image"></div>
+                                            </div>
+                                            <div class="my-3 d-grid gap-3 mb-5 ">
+                                                <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    식품영양정보 상세보기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </session>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary rounded-pill">저장</button>
+                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </session>
+    </main>
+
+        <footer class="container-fluid border-top">
+            <div class="py-3 my4 container"></div>
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2023 Full505, team4</p>
+        </footer>
+
+</body>
+</html>

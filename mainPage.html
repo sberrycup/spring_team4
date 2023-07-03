@@ -6,180 +6,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#commentBtn').click(function () {
-                $('#commentBox, #commentBox2').slideToggle();
-            });
+<script>
+    $(document).ready(function (){
+        $('#commentBtn').click(function(){
+            $('#commentBox').slideToggle();
         });
-    </script>
+    });
+</script>
 
-    <style>
-        .logo {
-            width: 100px;
-            height: 100px;
-            background-color: aqua;
-        }
+<style>
+    .logo {
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+    }
 
-        .profile {
-            width: 50px;
-            height: 50px;
-            background-color: aqua;
-        }
+    .profile {
+        width: 50px;
+        height: 50px;
+        background-color: aqua;
+    }
 
-        .write-icon {
-            width: 25px;
-            height: 25px;
-            background-color: aqua;
-        }
+    .write-icon {
+        width: 25px;
+        height: 25px;
+        background-color: aqua;
+    }
 
-        .board-image {
-            width: 1100px;
-            height: auto;
-            background-color: aqua;
-        }
+    .board-image {
+        width: 1100px;
+        height: auto;
+        background-color: aqua;
+    }
     </style>
 </head>
 <body>
-<header th:replace="~{layout/header :: header-basic}"></header>
+    <header class="container-fluid my-4">
 
-<main>
-    <!-- 글쓰기 -->
-    <session class="container my-5">
-        <div class="row">
-            <div class="col-sm-8 mx-auto border-bottom">
-                <form action="/main/insert" method="post">
-                    <div class="d-flex">
-                        <div class="profile rounded-circle me-3 align-self-start"></div>
-                        <textarea class="form-control border-0 align-self-start" name="boardContents" placeholder="무슨 일이 일어나고 있나요?"
-                                  type="text" rows="5"></textarea>
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-sm">
-                            <div class="d-flex">
-                                <!-- 이미지 업로드 아이콘 -->
-                                <div class="write-icon rounded me-3"></div>
-                                <!-- 계산기 아이콘 -->
-                                <div class="write-icon rounded"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary rounded-pill">글쓰기</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <!-- 로그인 링크(로그아웃, 마이페이지) -->
+        <div class="container d-flex justify-content-end">
+            <a href="#">로그인</a>
         </div>
-    </session>
-    <!-- 게시글 -->
-    <session class="container my-6 border-bottom">
-        <div class="row">
-            <div class="col-sm-8 mx-auto mt-4 border-bottom">
-                <form>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="d-flex">
-                                <div class="profile rounded-circle me-3 align-self-center"></div>
-                                <p class="align-self-center">닉네임</p>
-                            </div>
-                        </div>
-                        <!-- 내용 -->
-                        <div class="row my-3">
-                            <div class="col-sm">
-                                <textarea class="form-control border-0 align-self-start" type="text" rows="5" readonly>내용</textarea>
-                            </div>
-                        </div>
-                        <!-- 사진 -->
-                        <div class="row my-3">
-                            <div class="col-sm d-flex">
-                                <div class="board-image img-thumbnail justify-content-center"></div>
-                            </div>
-                        </div>
-                        <!-- 아이콘 -->
-                        <div class="row my-4">
-                            <div class="col-sm d-flex justify-content-between">
-                                <!-- 댓글 -->
-                                <div class="write-icon" id="commentBtn"></div>
-                                <!-- 좋아요 -->
-                                <div class="write-icon"></div>
-                                <!-- 퍼가기 -->
-                                <div class="write-icon"></div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </session>
 
-    <!-- 댓글쓰기 -->
-    <session class="container my-6 border-bottom" id="commentBox" style="display: none;">
-        <div class="row">
-            <div class="col-sm-8 mx-auto mt-4 border-bottom">
-                <form class="ms-5">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="d-flex">
-                                <div class="profile rounded-circle me-3 align-self-center"></div>
-                                <p class="align-self-center">닉네임</p>
-                            </div>
-                        </div>
-                        <!-- 내용 -->
-                        <div class="row my-3">
-                            <div class="col-sm">
-                                <textarea class="form-control border-0 align-self-start" type="text"
-                                          rows="3">내용</textarea>
-                            </div>
+        <!-- 로고 -->
+        <div class="container">
+            <div class="logo"></div>
+        </div>
+        
+        <!-- 네비바 -->
+        <nav class="container-fluid navbar navbar-expand-lg border-bottom mt-5">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-1g-0">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">홈</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">식품</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link active fs-3" href="#">내 식단</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2 rounded-0" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 글쓰기 -->
+        <session class="container my-5">
+            <div class="row">
+                <div class="col-sm-8 mx-auto border-bottom">
+                    <form>
+                        <div class="d-flex">
+                            <div class="profile rounded-circle me-3 align-self-start"></div>
+                            <textarea class="form-control border-0 align-self-start" placeholder="무슨 일이 일어나고 있나요?" type="text" rows="5"></textarea>
                         </div>
                         <div class="row my-4">
+                            <div class="col-sm">
+                                <div class="d-flex">
+                                    <!-- 이미지 업로드 아이콘 -->
+                                    <div class="write-icon rounded me-3"></div>
+                                    <!-- 계산기 아이콘 -->
+                                    <div class="write-icon rounded"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary rounded-pill">글쓰기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </session>
+        <!-- 게시글 -->
+        <session class="container my-6 border-bottom">
+            <div class="row">
+                <div class="col-sm-8 mx-auto mt-4 border-bottom">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="d-flex">
+                                    <div class="profile rounded-circle me-3 align-self-center"></div>
+                                    <p class="align-self-center">닉네임</p>
+                                </div>
+                            </div>
+                            <!-- 내용 -->
+                            <div class="row my-3">
+                                <div class="col-sm">
+                                    <textarea class="form-control border-0 align-self-start" type="text" rows="5" readonly>내용</textarea>
+                                </div>
+                            </div>
+                            <!-- 사진 -->
+                            <div class="row my-3">
+                                <div class="col-sm d-flex">
+                                    <div class="board-image img-thumbnail justify-content-center"></div>
+                                </div>
+                            </div>
+                            <!-- 아이콘 -->
+                            <div class="row my-4">
+                                <div class="col-sm d-flex justify-content-between">
+                                    <!-- 댓글 -->
+                                    <div class="write-icon" id="commentBtn"></div>
+                                    <!-- 좋아요 -->
+                                    <div class="write-icon"></div>
+                                    <!-- 퍼가기 -->
+                                    <div class="write-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </session>
+
+        <!-- 댓글쓰기 -->
+        <session class="container my-6 border-bottom" id="commentBox" style="display: none;">
+            <div class="row">
+                <div class="col-sm-8 mx-auto mt-4 border-bottom">
+                    <form class=" ms-5">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="d-flex">
+                                    <div class="profile rounded-circle me-3 align-self-center"></div>
+                                    <p class="align-self-center">닉네임</p>
+                                </div>
+                            </div>
+                            <!-- 내용 -->
+                            <div class="row my-3">
+                                <div class="col-sm">
+                                    <textarea class="form-control border-0 align-self-start" type="text" rows="3" >내용</textarea>
+                                </div>
+                            </div>
+                            <div class="row my-4">
                             <div class="col-sm">
                                 <div class="d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary rounded-pill">댓글쓰기</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    </session>
-<!--    댓글목록-->
-    <session class="container my-6 border-bottom" id="commentBox2" style="display: none;">
-        <div class="row">
-            <div class="col-sm-8 mx-auto mt-4 border-bottom">
-                <form class="ms-5">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="d-flex">
-                                <div class="profile rounded-circle me-3 align-self-center"></div>
-                                <p class="align-self-center">닉네임</p>
-                            </div>
-                        </div>
-                        <!-- 내용 -->
-                        <div class="row my-3">
-                            <div class="col-sm">
-                                <textarea class="form-control border-0 align-self-start" type="text"
-                                          rows="3" readonly>내용</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </session>
-</main>
+        </session>
+    </main>
 
-<footer th:replace="~{layout/footer :: footer-basic}"></footer>
+        <footer class="container-fluid border-top">
+            <div class="py-3 my4 container"></div>
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2023 Full505, team4</p>
+        </footer>
 
 </body>
 </html>
