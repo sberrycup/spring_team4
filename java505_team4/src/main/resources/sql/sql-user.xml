@@ -30,4 +30,22 @@
         VALUES
             (#{memberEmail}, #{memberPw}, #{memberName});
     </insert>
+
+    <select id="selectMemberManage" resultType="com.bitc.java505_team4.dto.UserDto">
+        SELECT
+            member_num, member_email, member_name, admin_yn
+        FROM
+            food_member
+        WHERE
+            admin_yn = 'n'
+        ORDER BY
+            member_email
+    </select>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from
+            food_member
+        Where
+            member_num = #{memberNum}
+    </delete>
 </mapper>

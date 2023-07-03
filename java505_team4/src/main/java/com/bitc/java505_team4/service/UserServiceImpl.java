@@ -5,6 +5,8 @@ import com.bitc.java505_team4.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,5 +26,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void insertMembership(UserDto userdto) throws Exception {
         userMapper.insertMembership(userdto);
+    }
+
+    @Override
+    public List<UserDto> selectMemberManage() throws Exception {
+        return userMapper.selectMemberManage();
+    }
+
+    @Override
+    public void deleteUser(int memberNum) throws Exception {
+        userMapper.deleteUser(memberNum);
     }
 }
