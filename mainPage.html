@@ -13,17 +13,21 @@
 
 <script>
     $(document).ready(function (){
-        $('#commentBtn').click(function(){
+        $('#commentBtn').on('click', function(){
             $('#commentBox').slideToggle();
         });
+        $("#heartBtn").on('click', function() {
+            $(".heart").toggleClass("clicked");
+        })
+
     });
 </script>
 
 <style>
     .logo {
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
+        width: 150px;
+        height: 150px;
+        /* background-color: aqua; */
     }
 
     .profile {
@@ -35,13 +39,27 @@
     .write-icon {
         width: 25px;
         height: 25px;
-        background-color: aqua;
+        /* background-color: aqua; */
     }
 
     .board-image {
         width: 1100px;
         height: auto;
         background-color: aqua;
+    }
+
+    .heart {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url('/imgSource/emptyheart.png'); /* 빈 하트 이미지 경로 */
+        background-size: cover;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .clicked {
+        background-image: url('/imgSource/fillheart.png'); /* 꽉 찬 하트 이미지 경로 */
     }
     </style>
 </head>
@@ -55,7 +73,9 @@
 
         <!-- 로고 -->
         <div class="container">
-            <div class="logo"></div>
+            <div class="logo">
+                <img src="/imgSource/logo.png" class="img-fluid">
+            </div>
         </div>
         
         <!-- 네비바 -->
@@ -84,7 +104,7 @@
 
     <main>
         <!-- 글쓰기 -->
-        <session class="container my-5">
+        <div class="container my-5">
             <div class="row">
                 <div class="col-sm-8 mx-auto border-bottom">
                     <form>
@@ -96,9 +116,9 @@
                             <div class="col-sm">
                                 <div class="d-flex">
                                     <!-- 이미지 업로드 아이콘 -->
-                                    <div class="write-icon rounded me-3"></div>
-                                    <!-- 계산기 아이콘 -->
-                                    <div class="write-icon rounded"></div>
+                                    <div class="write-icon rounded">
+                                        <img src="imgSource/imguploadicon.png" class="img-fluid">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -110,17 +130,29 @@
                     </form>
                 </div>
             </div>
-        </session>
+        </div>
         <!-- 게시글 -->
-        <session class="container my-6 border-bottom">
+        <div class="container my-6 border-bottom">
             <div class="row">
                 <div class="col-sm-8 mx-auto mt-4 border-bottom">
                     <form>
                         <div class="row">
                             <div class="col-sm">
-                                <div class="d-flex">
-                                    <div class="profile rounded-circle me-3 align-self-center"></div>
-                                    <p class="align-self-center">닉네임</p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <div class="profile rounded-circle me-3 align-self-center"></div>
+                                        <p class="align-self-center">닉네임</p>
+                                    </div>
+                                    <!-- 수정, 삭제 드롭다운 메뉴 -->
+                                    <div class="dropdown">
+                                        <div class="write-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/imgSource/more.png" class="img-fluid">
+                                        </div>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">수정</a></li>
+                                            <li><a class="dropdown-item" href="#">삭제</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <!-- 내용 -->
@@ -139,21 +171,32 @@
                             <div class="row my-4">
                                 <div class="col-sm d-flex justify-content-between">
                                     <!-- 댓글 -->
-                                    <div class="write-icon" id="commentBtn"></div>
+                                    <div class="write-icon rounded" id="commentBtn">
+                                        <img src="imgSource/commenticon.png" class="img-fluid">
+                                    </div>
                                     <!-- 좋아요 -->
-                                    <div class="write-icon"></div>
+                                    <div class="write-icon" id="heartBtn">
+                                        <span class="heart"></span>
+                                    </div>
                                     <!-- 퍼가기 -->
-                                    <div class="write-icon"></div>
+                                    <div class="dropdown">
+                                        <div class="write-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/imgSource/share.png" class="img-fluid">
+                                        </div>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">링크복사</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </session>
+        </div>
 
         <!-- 댓글쓰기 -->
-        <session class="container my-6 border-bottom" id="commentBox" style="display: none;">
+        <div class="container my-6 border-bottom" id="commentBox" style="display: none;">
             <div class="row">
                 <div class="col-sm-8 mx-auto mt-4 border-bottom">
                     <form class=" ms-5">
@@ -167,7 +210,7 @@
                             <!-- 내용 -->
                             <div class="row my-3">
                                 <div class="col-sm">
-                                    <textarea class="form-control border-0 align-self-start" type="text" rows="3" >내용</textarea>
+                                    <textarea class="form-control border-0 align-self-start" type="text" rows="3" placeholder="댓글을 작성해주세요."></textarea>
                                 </div>
                             </div>
                             <div class="row my-4">
@@ -180,7 +223,40 @@
                     </form>
                 </div>
             </div>
-        </session>
+            <!-- 댓글 -->
+            <div class="row">
+                <div class="col-sm-8 mx-auto mt-4 border-bottom">
+                    <form class=" ms-5">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <div class="profile rounded-circle me-3 align-self-center"></div>
+                                        <p class="align-self-center">닉네임</p>
+                                    </div>
+                                    <!-- 수정, 삭제 드롭다운 메뉴 -->
+                                    <div class="dropdown">
+                                        <div class="write-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/imgSource/more.png" class="img-fluid">
+                                        </div>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">수정</a></li>
+                                            <li><a class="dropdown-item" href="#">삭제</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 내용 -->
+                            <div class="row my-3">
+                                <div class="col-sm">
+                                    <textarea class="form-control border-0 align-self-start" type="text" rows="3" readonly>내용</textarea>
+                                </div>
+                            </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
         <footer class="container-fluid border-top">
