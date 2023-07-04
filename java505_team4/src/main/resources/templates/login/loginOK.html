@@ -28,6 +28,8 @@
             <a class="btn btn-outline-warning ms-3" href="/login/logout.do">Logout</a>
             <!--  th:if로 관리자일때 관리자 페이지로 이동함 -->
             <a href="/login/memberManage.do" class="btn btn-primary" th:if="${userInfo.adminYn.equals('Y')}">관리자 페이지로 이동</a>
+            <a href="/login/" th:attrappend="href=${userInfo.memberEmail}" class="btn btn-primary">내정보 페이지로 이동</a>
+<!--            <a href="/board3/" th:attrappend="href=${item.boardIdx}" th:text="${item.title}" class="text-decoration-none">글제목</a>-->
         </div>
     </div>
 </div>

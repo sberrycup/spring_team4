@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto myUserDetail(String memberEmail) throws Exception {
+        return userMapper.myUserDetail(memberEmail);
+    }
+
+    @Override
+    public void myUserUpdate(UserDto user) throws Exception {
+        userMapper.myUserUpdate(user);
+    }
+
+    @Override
     public void insertMembership(UserDto userdto) throws Exception {
         userMapper.insertMembership(userdto);
     }
@@ -31,6 +41,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> selectMemberManage() throws Exception {
         return userMapper.selectMemberManage();
+    }
+
+    @Override
+    public void updateUser(UserDto user) throws Exception {
+        userMapper.updateUser(user);
     }
 
     @Override

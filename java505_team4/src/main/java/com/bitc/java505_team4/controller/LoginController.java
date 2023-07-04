@@ -66,7 +66,7 @@ public class LoginController {
         return mv;
     }
 
-//    세션 삭제를 위한 로그아웃임
+    //    세션 삭제를 위한 로그아웃임
     @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
     public String doLogout(HttpServletRequest req) throws Exception {
         HttpSession session = req.getSession();
@@ -81,6 +81,32 @@ public class LoginController {
         return "login/logout";
     }
 
+// ------------------------- 내정보 페이지 -------------------------
+//    내정보 페이지로 이동
+    @RequestMapping(value = "/{memberEmail}", method = RequestMethod.GET)
+    public ModelAndView myMemberDetail(@PathVariable("memberEmail") String memberEmail) throws Exception{
+        ModelAndView mv = new ModelAndView("/login/myMember");
+
+        UserDto user = userService.myUserDetail(memberEmail);
+        mv.addObject("user", user);
+
+        return mv;
+    }
+
+//    내정보 수정 -> 세션이 원래꺼라서 이미 받아온 세션과 다를수가 있음
+//    그래서 세션을 삭제하고 다시 줌 -> html은 history.back하면 새로고침을 눌려야 반영됨
+//    jquery에서 location.href로 이동함
+    @RequestMapping(value = "/{memberEmail}", method = RequestMethod.PUT)
+    public String doMyUserUpdate(UserDto user, HttpServletRequest req) throws Exception{
+        HttpSession session = req.getSession();
+        session.removeAttribute("memberName");
+        session.setAttribute("memberName", user.getMemberName());
+        userService.myUserUpdate(user);
+        return "redirect:/login/{memberEmail}";
+    }
+
+// ------------------------- 회원가입 페이지 -------------------------
+//    회원가입
     @RequestMapping(value = "/joinMembership.do", method = RequestMethod.GET)
     public String doJoinMembership() throws Exception{
         return "login/member";
@@ -92,6 +118,7 @@ public class LoginController {
         return "login/login";
     }
 
+// -------------------------  회원관리 게시판 페이지 -------------------------
 //    회원관리 게시판 페이지
     @RequestMapping(value = "/memberManage.do", method = RequestMethod.GET)
     public ModelAndView doManagement(HttpServletRequest req) throws Exception{
@@ -102,21 +129,31 @@ public class LoginController {
         HttpSession session = req.getSession();
 
 //        세션을 가지고 와서 로그인한 아이디의 이름을 보여주기 위해서 사용함
-        mv.addObject("userinfo",(String) session.getAttribute("memberName"));
+        mv.addObject("userinfo", (String) session.getAttribute("memberName"));
         mv.addObject("userList", userList);
         return mv;
     }
 
-//    회원 삭제
-//    @RequestMapping(value = "/{memberNum}", method = RequestMethod.GET)
-    @RequestMapping(value = "/{memberNum}", method = RequestMethod.DELETE)
-    public String userDelete(@PathVariable("memberNum") int memberNum) throws Exception{
-        userService.deleteUser(memberNum);
+//    application.properties에 PUT, DELETE를 사용하기 위해서 추가해야함
+//    # PUT, DELETE도 지원하기 위해서 사용
+// spring.mvc.hiddenmethod.filter.enabled=true
+
+// 회원 수정 (관리자를 중간관리자등으로 수정함) - 참고
+    @RequestMapping(value = "/{memberNum}/{adminYn}", method = RequestMethod.PUT)
+    public String userUpdate(@PathVariable("memberNum") int memberNum, @PathVariable("adminYn") String adminYn) throws Exception {
+        System.out.println(memberNum);
+
+        UserDto user = new UserDto();
+        user.setMemberNum(memberNum);
+        user.setAdminYn(adminYn);
+
+        userService.updateUser(user);
         return "redirect:/login/memberManage.do";
     }
 
-    @RequestMapping(value = "/{memberNum}", method = RequestMethod.PUT)
-    public String userUpdate(@PathVariable("memberNum") int memberNum) throws Exception{
+//    회원 삭제
+    @RequestMapping(value = "/{memberNum}", method = RequestMethod.DELETE)
+    public String userDelete(@PathVariable("memberNum") int memberNum) throws Exception{
         userService.deleteUser(memberNum);
         return "redirect:/login/memberManage.do";
     }

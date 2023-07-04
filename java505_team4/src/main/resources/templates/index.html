@@ -22,6 +22,11 @@
                 const a = $('#todayDate').val();
                 alert(a);
             });
+
+            $("#b").on("click",function (){
+                const b = $('#b').val();
+                alert(b);
+            });
         });
     </script>
 </head>
@@ -31,6 +36,11 @@
         <input type="date" name="date" id="todayDate">
         <button type="submit" id="a">제출</button>
     </form>
+
+    <select class="form-select form-select-sm" id="b">
+        <option value="n">가입자</option>
+        <option value="f">중간 관리자</option>
+    </select>
 </div>
 </body>
 </html>

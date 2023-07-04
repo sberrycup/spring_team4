@@ -24,6 +24,24 @@
             member_email = #{memberEmail}
     </select>
 
+    <select id="myUserDetail" parameterType="String" resultType="com.bitc.java505_team4.dto.UserDto">
+        SELECT
+            member_email, member_pw, member_name
+        FROM
+            food_member
+        WHERE
+            member_email = #{memberEmail}
+    </select>
+
+    <select id="myUserUpdate" parameterType="com.bitc.java505_team4.dto.UserDto">
+        UPDATE
+            food_member
+        SET
+            member_pw = #{memberPw}, member_name = #{memberName}
+        WHERE
+            member_email = #{memberEmail}
+    </select>
+
     <insert id="insertMembership" parameterType="com.bitc.java505_team4.dto.UserDto">
         insert into
             food_member(member_email, member_pw, member_name)
@@ -37,10 +55,19 @@
         FROM
             food_member
         WHERE
-            admin_yn = 'n'
+            admin_yn != 'Y'
         ORDER BY
             member_email
     </select>
+
+    <update id="updateUser" parameterType="com.bitc.java505_team4.dto.UserDto">
+        UPDATE
+            food_member
+        SET
+            admin_yn = #{adminYn}
+        WHERE
+            member_num = #{memberNum};
+    </update>
 
     <delete id="deleteUser" parameterType="int">
         delete from
