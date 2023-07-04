@@ -15,6 +15,11 @@
 
     <script>
         $(document).ready(function () {
+            $("#btn-list").on('click',function (){
+                location.href = "/login/loginOK.do";
+                // history.back();
+            });
+
             // 반복문을 쓰면 id 값은 하나여야 돼서 불러오지 못함, 그래서 class로 값을 가져온다.
             // memberNum을 가져오기 위해서는 실행한 위치에서 목표까지의 위치에서의 값을 가져와야해서 그 위치까지 이동함
 
@@ -93,6 +98,9 @@
         </form>
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" id="btn-list">목록</button>
+    </div>
 </main>
 </body>
 </html>

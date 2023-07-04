@@ -77,8 +77,8 @@ public class LoginController {
 
         session.invalidate();
 
-//        return값을 main page로 이동 후 login/logout.html 제거(현재값 : 임시)
-        return "login/logout";
+//        return값을 main page로 이동하게 설정한뒤 제거(현재값 : 임시)
+        return "login/login";
     }
 
 // ------------------------- 내정보 페이지 -------------------------
@@ -134,11 +134,15 @@ public class LoginController {
         return mv;
     }
 
+//    @RequestMapping(value = "/memberManage.do", method = RequestMethod.POST)
+//    public void doManagement() throws Exception{
+//    }
+
 //    application.properties에 PUT, DELETE를 사용하기 위해서 추가해야함
 //    # PUT, DELETE도 지원하기 위해서 사용
 // spring.mvc.hiddenmethod.filter.enabled=true
 
-// 회원 수정 (관리자를 중간관리자등으로 수정함) - 참고
+// 회원 수정 (관리자를 중간관리자등으로 수정함) - 부가적인 것
     @RequestMapping(value = "/{memberNum}/{adminYn}", method = RequestMethod.PUT)
     public String userUpdate(@PathVariable("memberNum") int memberNum, @PathVariable("adminYn") String adminYn) throws Exception {
         System.out.println(memberNum);
