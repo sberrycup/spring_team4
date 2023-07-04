@@ -12,9 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <style>
     .logo {
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
+        width: 150px;
+        height: 150px;
+        /* background-color: aqua; */
     }
 
     .profile {
@@ -26,7 +26,7 @@
     .write-icon {
         width: 25px;
         height: 25px;
-        background-color: aqua;
+        /* background-color: aqua; */
     }
 
     .board-image {
@@ -46,8 +46,8 @@
 
     <script>
         $(document).ready(function (){
-            $('#searchBtn').click(function(){
-                $('#searchResult').slideToggle();
+            $('#searchBtn').on('click',function(){
+                $('#searchResult').toggle();
             });
         });
     </script>
@@ -55,14 +55,16 @@
 <body>
     <header class="container-fluid my-4">
 
-        <!-- 로그인(로그아웃, 마이페이지) -->
+        <!-- 로그인 링크(로그아웃, 마이페이지) -->
         <div class="container d-flex justify-content-end">
             <a href="#">로그인</a>
         </div>
 
         <!-- 로고 -->
         <div class="container">
-            <div class="logo"></div>
+            <div class="logo">
+                <img src="/imgSource/logo.png" class="img-fluid">
+            </div>
         </div>
         
         <!-- 네비바 -->
@@ -96,11 +98,11 @@
         <session class="container my-4">
             <form>
                 <div class="row border-bottom">
-                    <div class="col-sm-4 mx-auto">
+                    <div class="col-sm-8 mx-auto">
                         <h3 class="my-5">식품영양정보</h3>
                         <div class="row mb-5">
                             <!-- 검색창 -->
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <select class="form-select">
                                     <option selected>분류</option>
                                     <option value="1">1</option>
@@ -112,9 +114,9 @@
                             <div class="col-sm-6">
                                 <input class="form-control me-2" type="search" placeholder="Search">
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <div class="d-grid gap-3">
-                                    <button class="btn btn-outline-success" type="submit" id="searchBtn">Search</button>
+                                    <button class="btn btn-outline-success" type="button" id="searchBtn">Search</button>
                                 </div>
                             </div>
                         </div>
@@ -143,16 +145,16 @@
             </div>
             </form>
         </session>
-        <!-- 검색결과 ㄴ-->
-        <session id="searchResult">
+        <!-- 검색결과-->
+        <session id="searchResult" style="display: none;">
             <div class="row">
-                <div class="col-sm-4 mx-auto">
+                <div class="col-sm-7 mx-auto">
                     <p class="my-5 fs-5 text-muted">검색결과</p>
                     <div class="d-flex justify-content-start mb-5">
                         <h4 class="me-3">감자튀김</h4>
                         <p class="text-muted align-self-end">분류 > 튀김류</p>
                     </div>
-                    <div class="justify-content-center d-flex">
+                    <div class="justify-content-center d-flex mb-5">
                         <div class="board-image"></div>
                     </div>
                     <div class="my-3 d-grid gap-3 mb-5 ">
