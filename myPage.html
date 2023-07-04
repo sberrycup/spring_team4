@@ -12,9 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <style>
     .logo {
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
+        width: 150px;
+        height: 150px;
+        /* background-color: aqua; */
     }
 
     .profile {
@@ -26,7 +26,7 @@
     .write-icon {
         width: 25px;
         height: 25px;
-        background-color: aqua;
+        /* background-color: aqua; */
     }
 
     .board-image {
@@ -44,18 +44,36 @@
 
     </style>
 
+    <script>
+        $(document).ready(function() {
+            var isReadOnly = true;
+            $('#editProfileBtn').on('click', function() {
+                var nickField = $('#editNick');
+                var emailField = $('#editEmail');
+
+                isReadOnly = !isReadOnly;
+                nickField.prop('readonly', isReadOnly);
+                emailField.prop('readonly', isReadOnly);
+
+                $('#editPw').toggle();
+            });
+        });
+    </script>
+
 </head>
 <body>
     <header class="container-fluid my-4">
 
-        <!-- 로그인(로그아웃, 마이페이지) -->
+        <!-- 로그인 링크(로그아웃, 마이페이지) -->
         <div class="container d-flex justify-content-end">
             <a href="#">로그인</a>
         </div>
 
         <!-- 로고 -->
         <div class="container">
-            <div class="logo"></div>
+            <div class="logo">
+                <img src="/imgSource/logo.png" class="img-fluid">
+            </div>
         </div>
         
         <!-- 네비바 -->
@@ -99,13 +117,18 @@
                         <div class="card bg-secondary">
                             <div class="card-body">
                                 <div class="border-bottom">
-                                    <h5 class="card-title">닉네임</h5>
-                                    <p class="card-text text-light">이메일@이메일.com</p>
+                                    <input class="form-control border-0 fw-bold fs-5 bg-secondary" readonly value="닉네임" id="editNick">
+                                    <input class="form-control border-bottom border-0 bg-secondary text-light" readonly value="이메일@이메일.com" id="editEmail">
                                 </div>
-                                <p class="card-text"></p>
+                                <p class="card-text">
+                                    <div id="editPw" style="display: none;">
+                                        <label class="form-label" for="editPw">비밀번호</label>
+                                        <input type="text" class="form-control border-0 bg-secondary text-light" value="비밀번호">
+                                    </div>
+                                </p>
                             </div>
                             <div class="d-grid gap-2 mb-3 col-sm-11 mx-auto">
-                                <button type="button" class="btn btn-dark rounded-pill text-light">내 정보 수정</button>
+                                <button type="button" class="btn btn-dark rounded-pill text-light" id="editProfileBtn">내 정보 수정</button>
                             </div>
                         </div>
                     </div>
