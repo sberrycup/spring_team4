@@ -9,4 +9,7 @@ public class UserDto {
     private String memberPw;
     private String memberName;
     private String adminYn;
+
+    private String memberProfileName;
+    private String memberProfilePath;
 }

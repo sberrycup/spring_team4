@@ -33,14 +33,14 @@
             member_email = #{memberEmail}
     </select>
 
-    <select id="myUserUpdate" parameterType="com.bitc.java505_team4.dto.UserDto">
+    <update id="myUserUpdate" parameterType="com.bitc.java505_team4.dto.UserDto">
         UPDATE
             food_member
         SET
             member_pw = #{memberPw}, member_name = #{memberName}
         WHERE
             member_email = #{memberEmail}
-    </select>
+    </update>
 
     <insert id="insertMembership" parameterType="com.bitc.java505_team4.dto.UserDto">
         insert into
