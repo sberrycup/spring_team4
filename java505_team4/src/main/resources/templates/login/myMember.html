@@ -31,7 +31,7 @@
 </head>
 <body>
 <main class="container my-4">
-    <form id="frm" method="POST" enctype="multipart/form-data">
+    <form id="frm" method="post" enctype="multipart/form-data">
         <div class="row my-3">
             <div class="col-sm">
                 <div class="input-group">
@@ -57,6 +57,11 @@
             <div class="col-sm">
                 <label for="files" class="form-label">첨부파일 : </label>
                 <input type="file" class="form-control" id="files" name="files">
+            </div>
+            <div style="width: auto; height: auto;">
+<!--                <img src="/image/26064938148800.jpg">-->
+                <img th:src="${user.memberProfilePath}">
+<!--                <img src="C:/upload/2023-07-05/25024519191300.jpg">-->
             </div>
         </div>
         <div class="row my-3">

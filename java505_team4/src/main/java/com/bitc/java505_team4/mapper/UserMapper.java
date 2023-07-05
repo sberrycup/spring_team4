@@ -13,11 +13,19 @@ public interface UserMapper {
 
     public UserDto getUserInfo(@Param("memberEmail") String memberEmail) throws Exception;
 
+//
+
     UserDto myUserDetail(@Param("memberEmail")String memberEmail) throws Exception;
 
     void myUserUpdate(UserDto user) throws Exception;
 
+    void updateUserProfile(UserDto fileList) throws Exception;
+
+//
+
     public void insertMembership(UserDto userdto) throws Exception;
+
+//
 
     List<UserDto> selectMemberManage() throws Exception;
 

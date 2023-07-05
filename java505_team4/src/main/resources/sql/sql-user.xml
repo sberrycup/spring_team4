@@ -26,7 +26,7 @@
 
     <select id="myUserDetail" parameterType="String" resultType="com.bitc.java505_team4.dto.UserDto">
         SELECT
-            member_email, member_pw, member_name
+            member_email, member_pw, member_name, member_profile_name, member_profile_path
         FROM
             food_member
         WHERE
@@ -38,6 +38,15 @@
             food_member
         SET
             member_pw = #{memberPw}, member_name = #{memberName}
+        WHERE
+            member_email = #{memberEmail}
+    </update>
+
+    <update id="updateUserProfile" parameterType="com.bitc.java505_team4.dto.UserDto">
+        UPDATE
+            food_member
+        SET
+            member_profile_name = #{memberProfileName}, member_profile_path = #{memberProfilePath}
         WHERE
             member_email = #{memberEmail}
     </update>

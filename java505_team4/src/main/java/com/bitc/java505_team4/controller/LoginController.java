@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.List;
@@ -97,11 +98,13 @@ public class LoginController {
 //    그래서 세션을 삭제하고 다시 줌 -> html은 history.back하면 새로고침을 눌려야 반영됨
 //    jquery에서 location.href로 이동함
     @RequestMapping(value = "/{memberEmail}", method = RequestMethod.PUT)
-    public String doMyUserUpdate(UserDto user, HttpServletRequest req) throws Exception{
+    public String doMyUserUpdate(UserDto user, MultipartHttpServletRequest multiPart, HttpServletRequest req) throws Exception{
+
         HttpSession session = req.getSession();
         session.removeAttribute("memberName");
         session.setAttribute("memberName", user.getMemberName());
-        userService.myUserUpdate(user);
+
+        userService.myUserUpdate(user, multiPart);
         return "redirect:/login/{memberEmail}";
     }
 

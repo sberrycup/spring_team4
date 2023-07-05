@@ -1,9 +1,12 @@
 package com.bitc.java505_team4.service;
 
+import com.bitc.java505_team4.common.FileUtils;
 import com.bitc.java505_team4.dto.UserDto;
 import com.bitc.java505_team4.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private FileUtils fileUtils;
 
     @Override
     public int isUserInfo(String memberEmail, String memberPw) throws Exception {
@@ -29,8 +35,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void myUserUpdate(UserDto user) throws Exception {
+    public void myUserUpdate(UserDto user, MultipartHttpServletRequest uploadFiles) throws Exception {
         userMapper.myUserUpdate(user);
+        List<UserDto> fileList = fileUtils.parseFileInfo(user, uploadFiles);
+        if (CollectionUtils.isEmpty(fileList) == false) {
+            userMapper.updateUserProfile(fileList.get(0));
+        }
     }
 
     @Override
