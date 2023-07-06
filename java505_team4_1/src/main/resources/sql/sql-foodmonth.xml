@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.java505_team4_1.mapper.FoodMonthMapper">
+    <select id="foodMonthList" parameterType="String" resultType="">
+        Select
+            foodm_name
+        from
+            food_months
+        where
+            foodm_month = #{foodMMonth}, foodm_name = #{foodMName}
+    </select>
+</mapper>

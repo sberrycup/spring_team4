@@ -1,7 +1,6 @@
 package com.bitc.java505_team4.mapper;
 
 import com.bitc.java505_team4.dto.UserDto;
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
