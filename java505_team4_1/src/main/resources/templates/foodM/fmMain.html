@@ -22,9 +22,23 @@
                 $.ajax({
                     url:"/foodMonths.do",
                     type: 'POST',
-                    data: {foodName: foodName, month: month},
+                    data: {foodMName: foodName, foodMMonth: month},
                     success: function (data){
-                        alert(foodName+","+month);
+                        const p = $('#btn-result > p');
+                        p.empty();
+
+                        // 물어봐야함(foodMMonth가 null일때 어떻게 해야하는지)
+                        if(data.foodMMonth == null){
+                            for(let i = 0; i < data.length; i++){
+                                let tag = "<p>" + data[i].foodMName + "</p>";
+                                p.append(tag);
+                            }
+                        }else{
+                            for(let i = 0; i < data.length; i++){
+                                let tag = "<p>" + "<span>[" + data[i].foodMMonth +"]</span>" +data[i].foodMName + "</p>";
+                                p.append(tag);
+                            }
+                        }
                     },
                     error: function(){
                         alert("서버와 통신 중 오류가 발생했습니다.");
@@ -36,40 +50,41 @@
 </head>
 <body>
 <div class="container my-3">
-    <form>
-        <div class="row d-flex justify-content-start">
-            <div class="col-sm-5 d-flex">
-                <div class="col-sm-5 justify-content-center">
-                    <label for="foodName" class="form-label">식재료 및 레시피</label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" id="foodName" name="foodName">
-                </div>
+    <div class="row d-flex justify-content-start">
+        <div class="col-sm-5 d-flex">
+            <div class="col-sm-5 justify-content-center">
+                <label for="foodName" class="form-label">식재료 및 레시피</label>
             </div>
-            <div class="col-sm-1">
-                <select class="form-select form-select-sm" id="select-months">
-                    <option th:value="'1월'">1월</option>
-                    <option th:value="'2월'">2월</option>
-                    <option th:value="'3월'">3월</option>
-                    <option th:value="'4월'">4월</option>
-                    <option th:value="'5월'">5월</option>
-                    <option th:value="'6월'">6월</option>
-                    <option th:value="'7월'">7월</option>
-                    <option th:value="'8월'">8월</option>
-                    <option th:value="'9월'">9월</option>
-                    <option th:value="'10월'">10월</option>
-                    <option th:value="'11월'">11월</option>
-                    <option th:value="'12월'">12월</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary me-2" id="btn-search">검색</button>
-                    <button type="reset" class="btn btn-primary">초기화</button>
-                </div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="foodName" name="foodName">
             </div>
         </div>
-    </form>
+        <div class="col-sm-1">
+            <select class="form-select form-select-sm" id="select-months">
+                <option th:value="'1월'">1월</option>
+                <option th:value="'2월'">2월</option>
+                <option th:value="'3월'">3월</option>
+                <option th:value="'4월'">4월</option>
+                <option th:value="'5월'">5월</option>
+                <option th:value="'6월'">6월</option>
+                <option th:value="'7월'">7월</option>
+                <option th:value="'8월'">8월</option>
+                <option th:value="'9월'">9월</option>
+                <option th:value="'10월'">10월</option>
+                <option th:value="'11월'">11월</option>
+                <option th:value="'12월'">12월</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary me-2" id="btn-search">검색</button>
+                <button type="reset" class="btn btn-primary">초기화</button>
+            </div>
+        </div>
+    </div>
+    <div id="btn-result">
+        <p></p>
+    </div>
 </div>
 </body>
 </html>
