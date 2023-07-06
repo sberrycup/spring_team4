@@ -1,12 +1,22 @@
 package com.bitc.java505_team4.common;
 
 import com.bitc.java505_team4.dto.UserDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.connector.Request;
+import org.apache.ibatis.javassist.ClassClassPath;
+import org.apache.tomcat.util.net.jsse.JSSEUtil;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.support.JstlUtils;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,8 +39,13 @@ public class FileUtils {
 //    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //    ZonedDateTime current = ZonedDateTime.now();
 
-//    String path = "C:/upload/" + current.format(format);
+//    String path = "C:/upload";
     String path = "/image";
+
+//    URL resource = getClass().getClassLoader().getResource("");
+//    System.out.println(resource);
+
+
     String path2 = "C:\\smart505\\team4\\java505_team4\\src\\main\\resources\\static\\image";
 
     File file = new File(path2);
