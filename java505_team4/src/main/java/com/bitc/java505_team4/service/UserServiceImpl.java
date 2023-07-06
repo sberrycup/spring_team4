@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         userMapper.myUserUpdate(user);
         List<UserDto> fileList = fileUtils.parseFileInfo(user, uploadFiles);
         if (CollectionUtils.isEmpty(fileList) == false) {
+//            sql에서 insert처럼 update는 여러개를 한번에 수정하지 않고 한번에 한번만 수정한다
             userMapper.updateUserProfile(fileList.get(0));
         }
     }
