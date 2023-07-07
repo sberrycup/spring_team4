@@ -27,18 +27,25 @@
                         const p = $('#btn-result > p');
                         p.empty();
 
-                        // 물어봐야함(foodMMonth가 null일때 어떻게 해야하는지)
-                        if(data.foodMMonth == null){
-                            for(let i = 0; i < data.length; i++){
-                                let tag = "<p>" + data[i].foodMName + "</p>";
-                                p.append(tag);
-                            }
+                        let tag = "";
+
+                        // 식재료를 아무것도 넣지 않았을 때 => 몇월 검색과 어떤것을 검색하는 것으로 2가지 방식
+                        if(foodName == ''){
+                            tag += "<h1>" + month + "의 식재료</h1>"
                         }else{
-                            for(let i = 0; i < data.length; i++){
-                                let tag = "<p>" + "<span>[" + data[i].foodMMonth +"]</span>" +data[i].foodMName + "</p>";
-                                p.append(tag);
+                            tag += "<h1>'" + foodName + "'의 검색 결과</h1>"
+                        }
+
+                        // [월]을 붙이고 싶은데 방법을 모르겠어서
+                        for(let i = 0; i < data.length; i++){
+                            if(data[i].foodMMonth == null){
+                                tag += "<p>" + data[i].foodMName + "</p>";
+                            }else{
+                                tag += "<p>" + "<span>[" + data[i].foodMMonth +"]</span>" +data[i].foodMName + "</p>";
                             }
                         }
+
+                        p.append(tag);
                     },
                     error: function(){
                         alert("서버와 통신 중 오류가 발생했습니다.");

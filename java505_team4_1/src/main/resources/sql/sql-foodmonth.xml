@@ -5,14 +5,6 @@
 
 <mapper namespace="com.bitc.java505_team4_1.mapper.FoodMonthMapper">
     <select id="foodMonthList" parameterType="String" resultType="com.bitc.java505_team4_1.dto.FoodMonthDto">
-<!--        Select-->
-<!--            foodm_name-->
-<!--        from-->
-<!--            food_months-->
-<!--        where-->
-<!--            foodm_name = #{foodMName}-->
-<!--        and-->
-<!--            foodm_month = #{foodMMonth}-->
         select
             foodm_name, foodm_month
         From

@@ -2,6 +2,8 @@ package com.bitc.java505_team4_1.controller;
 
 import com.bitc.java505_team4_1.dto.FoodMonthDto;
 import com.bitc.java505_team4_1.service.FoodMonthService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
