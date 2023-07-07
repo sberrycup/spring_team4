@@ -15,6 +15,10 @@
 
     <script>
         $(document).ready(function (){
+            $('#btn-reset').on("click", function (){
+                location.href = "/foodMonths.do";
+            })
+
             $('#btn-search').on("click",function (){
                 const foodName = $('#foodName').val();
                 const month = $('#select-months').val();
@@ -22,30 +26,47 @@
                 $.ajax({
                     url:"/foodMonths.do",
                     type: 'POST',
-                    data: {foodMName: foodName, foodMMonth: month},
+                    data: {fd_Nm: foodName, foodMMonth: month, Page_No : 1, Page_Size : 5},
                     success: function (data){
+
+                        const foodAPIList = data.foodAPIList;
+                        const foodDBList = data.foodDBList;
+
                         const p = $('#btn-result > p');
                         p.empty();
 
                         let tag = "";
 
-                        // 식재료를 아무것도 넣지 않았을 때 => 몇월 검색과 어떤것을 검색하는 것으로 2가지 방식
                         if(foodName == ''){
                             tag += "<h1>" + month + "의 식재료</h1>"
                         }else{
-                            tag += "<h1>'" + foodName + "'의 검색 결과</h1>"
+                            tag += "<h1>'" + foodName + "'의 식재료 검색 결과</h1>"
                         }
 
-                        // [월]을 붙이고 싶은데 방법을 모르겠어서
-                        for(let i = 0; i < data.length; i++){
-                            if(data[i].foodMMonth == null){
-                                tag += "<p>" + data[i].foodMName + "</p>";
+                        for(let i = 0; i < foodDBList.length; i++){
+                            if(foodDBList[i].foodMMonth == null){
+                                tag += "<p>" + foodDBList[i].foodMName + "</p>";
                             }else{
-                                tag += "<p>" + "<span>[" + data[i].foodMMonth +"]</span>" +data[i].foodMName + "</p>";
+                                tag += "<p>" + "<span>[" + foodDBList[i].foodMMonth +"]</span>" + foodDBList[i].foodMName + "</p>";
                             }
                         }
 
+                        if(foodName == ''){
+                            tag += "<h1>" + month + "의 레시피</h1>"
+                        }else{
+                            tag += "<h1>'" + foodName + "'의 레시피 검색 결과</h1>"
+                        }``
+
+                        for(let i = 0; i < foodAPIList.length; i++){
+                            for(let j = 0; j < 2; j++){
+                                console.log(foodAPIList[i].itemList[j].ckry_Nm);
+                            }
+                            // (items.itemList)
+                        }
+
                         p.append(tag);
+
+                        // onRecipeEvent();
                     },
                     error: function(){
                         alert("서버와 통신 중 오류가 발생했습니다.");
@@ -53,6 +74,42 @@
                 });
             });
         });
+
+        // function onRecipeEvent() {
+        //     $(".detailPage").on("click", function () {
+        //         const tag = $(this);
+        //         const foodAPIList = data.foodAPIList;
+        //
+        //         $.ajax({
+        //             url : "/foodUrl",
+        //             type : "POST",
+        //             data : {Page_No : 1, Page_Size : 10 , fd_Nm : tag.text()},
+        //             success : function (data) {
+        //                 const p1 = $("#btn-recipeResult > p")
+        //                 p1.empty();
+        //
+        //                 let pRecipe = "";
+        //
+        //                 for (let i = 0; i < foodAPIList.length; i++) {
+        //                     // 조리 방법 멤버를 더함
+        //                     pRecipe += "<p><a class='detailPage'>" + foodAPIList[i].ckry_Nm + "</a></p>";
+        //                 }
+        //
+        //                 // 어떤걸 추가하는지 보고 확인
+        //                 for (let i = 0; i < (foodAPIList[0].foodList.foodList).length; i++) {
+        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
+        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
+        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
+        //                 }
+        //
+        //                 p1.append(pRecipe);
+        //             },
+        //             error : function () {
+        //                 alert("통신 에러");
+        //             }
+        //         })
+        //     });
+        // }
     </script>
 </head>
 <body>
@@ -85,11 +142,14 @@
         <div class="col-sm-2">
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary me-2" id="btn-search">검색</button>
-                <button type="reset" class="btn btn-primary">초기화</button>
+                <button type="reset" class="btn btn-primary" id="btn-reset">초기화</button>
             </div>
         </div>
     </div>
     <div id="btn-result">
+        <p></p>
+    </div>
+    <div id="btn-recipeResult">
         <p></p>
     </div>
 </div>
