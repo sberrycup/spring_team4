@@ -58,15 +58,17 @@
                         }``
 
                         for(let i = 0; i < foodAPIList.length; i++){
-                            for(let j = 0; j < 2; j++){
-                                console.log(foodAPIList[i].itemList[j].ckry_Nm);
+                            if(foodAPIList[i] != null){
+                                for(let j = 0; j < foodAPIList[i].length; j++){
+                                    // tag += "<p><a class='info' th:value='${foodName}'>" + foodAPIList[i][j].ckry_Nm + "</a></p>";
+                                    tag += "<p><a class='info'>" + foodAPIList[i][j].fd_Nm + "</a></p>";
+                                }
                             }
-                            // (items.itemList)
                         }
 
                         p.append(tag);
 
-                        // onRecipeEvent();
+                        onRecipeEvent();
                     },
                     error: function(){
                         alert("서버와 통신 중 오류가 발생했습니다.");
@@ -75,41 +77,39 @@
             });
         });
 
-        // function onRecipeEvent() {
-        //     $(".detailPage").on("click", function () {
-        //         const tag = $(this);
-        //         const foodAPIList = data.foodAPIList;
-        //
-        //         $.ajax({
-        //             url : "/foodUrl",
-        //             type : "POST",
-        //             data : {Page_No : 1, Page_Size : 10 , fd_Nm : tag.text()},
-        //             success : function (data) {
-        //                 const p1 = $("#btn-recipeResult > p")
-        //                 p1.empty();
-        //
-        //                 let pRecipe = "";
-        //
-        //                 for (let i = 0; i < foodAPIList.length; i++) {
-        //                     // 조리 방법 멤버를 더함
-        //                     pRecipe += "<p><a class='detailPage'>" + foodAPIList[i].ckry_Nm + "</a></p>";
-        //                 }
-        //
-        //                 // 어떤걸 추가하는지 보고 확인
-        //                 for (let i = 0; i < (foodAPIList[0].foodList.foodList).length; i++) {
-        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
-        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
-        //                     // pRecipe += "<p>" + foodAPIList[0].foodList.foodList[i]. + "</p>"
-        //                 }
-        //
-        //                 p1.append(pRecipe);
-        //             },
-        //             error : function () {
-        //                 alert("통신 에러");
-        //             }
-        //         })
-        //     });
-        // }
+        function onRecipeEvent() {
+            $(".info").on("click", function () {
+                const foodName = $(this);
+
+                $.ajax({
+                    url:"/foodMonths.do",
+                    type: 'POST',
+                    data: {fd_Nm: foodName.text(), foodMMonth: '1월', Page_No : 1, Page_Size : 5},
+                    success : function (data) {
+                        
+                        const foodAPIList = data.foodAPIList;
+
+                        const p1 = $("#btn-recipeResult > p")
+                        p1.empty();
+
+                        let pRecipe = "";
+
+                        if(foodAPIList[0] != null){
+                            pRecipe += "<p>" + foodAPIList[0][0].ckry_Sumry_Info + "</p>";
+
+                            for (let i = 0; i < (foodAPIList[0][0].foodList.foodList).length; i++) {
+                                pRecipe += "<p>" + foodAPIList[0][0].foodList.foodList.food_Nm + "</p>";
+                            }
+                        }
+
+                        p1.append(pRecipe);
+                    },
+                    error : function () {
+                        alert("통신 에러");
+                    }
+                })
+            });
+        }
     </script>
 </head>
 <body>

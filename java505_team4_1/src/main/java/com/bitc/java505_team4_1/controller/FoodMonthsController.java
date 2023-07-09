@@ -40,6 +40,7 @@ public class FoodMonthsController {
 //    위와 같은 방법으로 false,true를 줘서 하는 방법이 있음
     public Object doPostFoodMonths(@RequestParam("fd_Nm") String foodName, @RequestParam("foodMMonth") String month, String Page_No, String Page_Size) throws Exception{
 
+//        나중에 추가할때 버튼이 안된다.
         List<FoodMonthDto> foodMonthDtoList = null;
 
 //        trim을 써서 이상한 것 날리고 null인지 확인한다.
@@ -54,7 +55,7 @@ public class FoodMonthsController {
 
         String url = "https://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList";
         String serviceKey = "?serviceKey=";
-        String key = "CW2CKvXPaOkFQSGvnI%2B5ly3MDBk%2BDuFxAdXMeAoP9T2EXQOeOi5P%2F8m95VWOpC1WcGdtFZ4%2FmfKHSNz76%2FetSA%3D%3D";
+        String key = "%2FrJ0lubv%2B4MV1XYApYfL%2Fw93lueywJYc3Gjo7PuKxSNOhJzMFusJmj0D6ZLDKzD6cMkRG8tyC8ZTDbnVYZXKJQ%3D%3D";
 //        %2FrJ0lubv%2B4MV1XYApYfL%2Fw93lueywJYc3Gjo7PuKxSNOhJzMFusJmj0D6ZLDKzD6cMkRG8tyC8ZTDbnVYZXKJQ%3D%3D (내 키)
 //        yde%2BbfwnvOmXEL6VOY1zviYmunzq3TPYLBJG2fzC9XisbSxP6xIHPaMgz3Q9xjJhbHDDN%2BhD7pw2HjMDvz4Lpw%3D%3D (규호씨 키)
         String serviceType = "&service_Type=xml";
