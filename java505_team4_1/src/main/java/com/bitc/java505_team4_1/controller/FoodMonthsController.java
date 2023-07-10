@@ -70,13 +70,19 @@ public class FoodMonthsController {
 
         List<List<FoodItem>> foodItemList = new ArrayList<>();
 
-        for (int i = 0; i < foodMonthDtoList.size(); i++) {
-            foodName = URLEncoder.encode(foodMonthDtoList.get(i).getFoodMName(), "UTF-8");
+        if(foodMonthDtoList.size() > 0){
+            for (int i = 0; i < foodMonthDtoList.size(); i++) {
+                foodName = URLEncoder.encode(foodMonthDtoList.get(i).getFoodMName(), "UTF-8");
+                List<FoodItem> foodList = foodService.getItemListUrl(url + serviceKey + key + serviceType + opt1 + Page_No + opt2 + Page_Size + opt3 + foodName + opt4 + opt5);
+                foodItemList.add(foodList);
+            }
+        }else{
+            foodName = URLEncoder.encode(foodName, "UTF-8");
             List<FoodItem> foodList = foodService.getItemListUrl(url + serviceKey + key + serviceType + opt1 + Page_No + opt2 + Page_Size + opt3 + foodName + opt4 + opt5);
             foodItemList.add(foodList);
         }
 
-        //        return itemList;
+        // return itemList;
 
         Map<String, Object> data = new HashMap<>();
         data.put("foodDBList", foodMonthDtoList);

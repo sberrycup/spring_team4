@@ -35,6 +35,9 @@
                         const p = $('#btn-result > p');
                         p.empty();
 
+                        const p1 = $("#btn-recipeResult > p")
+                        p1.empty();
+
                         let tag = "";
 
                         if(foodName == ''){
@@ -95,17 +98,24 @@
                         let pRecipe = "";
 
                         if(foodAPIList[0] != null){
-                            pRecipe += "<p>" + foodAPIList[0][0].ckry_Sumry_Info + "</p>";
+                            pRecipe += "<p>"+ foodAPIList[0][0].fd_Nm + " 조리 방법 : " + foodAPIList[0][0].ckry_Sumry_Info + "</p>";
+                            pRecipe += "<div class='d-flex'><p> 재료 : </p>";
 
                             for (let i = 0; i < (foodAPIList[0][0].foodList.foodList).length; i++) {
-                                pRecipe += "<p>" + foodAPIList[0][0].foodList.foodList.food_Nm + "</p>";
+                                if(i == 0){
+                                    pRecipe += "<p> (" + foodAPIList[0][0].foodList.foodList[i].food_Nm + ")</p>";
+                                }else{
+                                    pRecipe += "<p>, (" + foodAPIList[0][0].foodList.foodList[i].food_Nm + ")</p>";
+                                }
                             }
                         }
+
+                        pRecipe += "</div>";
 
                         p1.append(pRecipe);
                     },
                     error : function () {
-                        alert("통신 에러");
+                        alert("서버와 통신 중 오류가 발생했습니다.");
                     }
                 })
             });
@@ -151,6 +161,10 @@
     </div>
     <div id="btn-recipeResult">
         <p></p>
+
+        <div class="d-flex">
+
+        </div>
     </div>
 </div>
 </body>
