@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class FoodServiceImpl implements FoodService{
 
+//    수업 시간에 했던 예제를 거의 비슷하게 가져옴
     @Override
     public List<FoodItem> getItemListUrl(String strUrl) throws Exception {
         List<FoodItem> itemList = null;

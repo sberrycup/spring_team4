@@ -47,7 +47,7 @@ public class FoodMonthsController {
         if (foodName.trim().equals("")) {
             foodMonthDtoList = foodMonthService.foodNameNullMonthList(month);
         }
-        else {
+        else{
 //            foodMonthDtoList = foodMonthService.foodMonthList(foodName, month);
             foodMonthDtoList = foodMonthService.foodMonthList(foodName);
         }
@@ -55,7 +55,7 @@ public class FoodMonthsController {
 
         String url = "https://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList";
         String serviceKey = "?serviceKey=";
-        String key = "%2FrJ0lubv%2B4MV1XYApYfL%2Fw93lueywJYc3Gjo7PuKxSNOhJzMFusJmj0D6ZLDKzD6cMkRG8tyC8ZTDbnVYZXKJQ%3D%3D";
+        String key = "CW2CKvXPaOkFQSGvnI%2B5ly3MDBk%2BDuFxAdXMeAoP9T2EXQOeOi5P%2F8m95VWOpC1WcGdtFZ4%2FmfKHSNz76%2FetSA%3D%3D";
 //        %2FrJ0lubv%2B4MV1XYApYfL%2Fw93lueywJYc3Gjo7PuKxSNOhJzMFusJmj0D6ZLDKzD6cMkRG8tyC8ZTDbnVYZXKJQ%3D%3D (내 키)
 //        yde%2BbfwnvOmXEL6VOY1zviYmunzq3TPYLBJG2fzC9XisbSxP6xIHPaMgz3Q9xjJhbHDDN%2BhD7pw2HjMDvz4Lpw%3D%3D (규호씨 키)
         String serviceType = "&service_Type=xml";
@@ -70,6 +70,8 @@ public class FoodMonthsController {
 
         List<List<FoodItem>> foodItemList = new ArrayList<>();
 
+//        foodMonthDtoList는 데이터에 접근하는 dto List인데  만약 값이 없다면 db에 그런 데이터가 없다는 의미
+//        재료나 조리방법을 설명하는 ajax에서 넘오는 매개변수가 아예 새로운 값이므로
         if(foodMonthDtoList.size() > 0){
             for (int i = 0; i < foodMonthDtoList.size(); i++) {
                 foodName = URLEncoder.encode(foodMonthDtoList.get(i).getFoodMName(), "UTF-8");
@@ -84,6 +86,7 @@ public class FoodMonthsController {
 
         // return itemList;
 
+//        검색 했을 때 여러가지 기능을 수행한 결과값이 넘어가야 함
         Map<String, Object> data = new HashMap<>();
         data.put("foodDBList", foodMonthDtoList);
         data.put("foodAPIList", foodItemList);

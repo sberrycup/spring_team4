@@ -15,10 +15,12 @@
 
     <script>
         $(document).ready(function (){
+            // 초기화 버튼
             $('#btn-reset').on("click", function (){
                 location.href = "/foodMonths.do";
             })
 
+            // 검색 버튼, 검색은 2가지 방법이 있음(월만 입력, 검색어만 입력)
             $('#btn-search').on("click",function (){
                 const foodName = $('#foodName').val();
                 const month = $('#select-months').val();
@@ -29,9 +31,16 @@
                     data: {fd_Nm: foodName, foodMMonth: month, Page_No : 1, Page_Size : 5},
                     success: function (data){
 
+                        // Map 방식으로 받아서 데이터를 받아옴
                         const foodAPIList = data.foodAPIList;
                         const foodDBList = data.foodDBList;
 
+                        // 레시피 중복 확인을 위한 리스트
+                        let confirmDu = new Array();
+                        var dulplicationConfirm = false;
+
+
+                        // 검색 했을 때 이미 전에 검색했던 것 삭제
                         const p = $('#btn-result > p');
                         p.empty();
 
@@ -40,6 +49,7 @@
 
                         let tag = "";
 
+                        // 방법 1. 검색어가 없을 때(foodName == '')
                         if(foodName == ''){
                             tag += "<h1>" + month + "의 식재료</h1>"
                         }else{
@@ -47,6 +57,7 @@
                         }
 
                         for(let i = 0; i < foodDBList.length; i++){
+                            // foodDBList의 db를 검색하는 리스트에 month값을 받아온게 없으면
                             if(foodDBList[i].foodMMonth == null){
                                 tag += "<p>" + foodDBList[i].foodMName + "</p>";
                             }else{
@@ -60,17 +71,29 @@
                             tag += "<h1>'" + foodName + "'의 레시피 검색 결과</h1>"
                         }``
 
+                        // 여라가지 재료가 나왔을 경우 재료의 모든 레시피를 가져오기 위해서 이중 리스트 사용
+                        // 이중 리스트는 [][]으로 표현, 2차원 배열 같은 것으로 인식
                         for(let i = 0; i < foodAPIList.length; i++){
                             if(foodAPIList[i] != null){
                                 for(let j = 0; j < foodAPIList[i].length; j++){
-                                    // tag += "<p><a class='info' th:value='${foodName}'>" + foodAPIList[i][j].ckry_Nm + "</a></p>";
-                                    tag += "<p><a class='info'>" + foodAPIList[i][j].fd_Nm + "</a></p>";
+                                    for(let k = 0; k < confirmDu.length; k++){
+                                        if(foodAPIList[i][j].fd_Code == confirmDu[k]){
+                                            dulplicationConfirm = true;
+                                        }
+                                    }
+                                    if(dulplicationConfirm == false){
+                                        // tag += "<p><a class='info' th:value='${foodName}'>" + foodAPIList[i][j].ckry_Nm + "</a></p>";
+                                        tag += "<p><a class='info'>" + foodAPIList[i][j].fd_Nm + "</a></p>";
+                                        confirmDu.push(foodAPIList[i][j].fd_Code);
+                                    }
+                                    dulplicationConfirm = false;
                                 }
                             }
                         }
 
                         p.append(tag);
 
+                        // 레시피를 클릭했을 때
                         onRecipeEvent();
                     },
                     error: function(){
@@ -84,6 +107,7 @@
             $(".info").on("click", function () {
                 const foodName = $(this);
 
+                // 같은 주소를 불러오므로 같은 data를 매개변수로 사용한다.
                 $.ajax({
                     url:"/foodMonths.do",
                     type: 'POST',
