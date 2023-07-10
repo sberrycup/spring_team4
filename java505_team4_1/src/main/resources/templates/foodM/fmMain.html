@@ -81,6 +81,8 @@
                                             dulplicationConfirm = true;
                                         }
                                     }
+                                    // ajax에서 value 값 설정하기
+                                    // String htmlResponse = "<p th:value=\"" + dynamicValue + "\">" + dynamicValue + "</p>";
                                     if(dulplicationConfirm == false){
                                         // tag += "<p><a class='info' th:value='${foodName}'>" + foodAPIList[i][j].ckry_Nm + "</a></p>";
                                         tag += "<p><a class='info'>" + foodAPIList[i][j].fd_Nm + "</a></p>";
